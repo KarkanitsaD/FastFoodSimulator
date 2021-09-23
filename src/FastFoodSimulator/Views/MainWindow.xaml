@@ -1,0 +1,224 @@
+﻿<Window x:Class="FastFoodSimulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="800"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="15px"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70*"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="0" 
+                Text="Customer time interval:" Height="20" TextAlignment="Center" />
+
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="1" 
+                Text="Cook time interval:" Height="20" TextAlignment="Center" />
+            
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="2" 
+                Text="Order taker ordering time:" Height="20" TextAlignment="Center" />     
+
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="3" 
+                Text="Server delivery time:" Height="20" TextAlignment="Center" /> 
+
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="4" 
+                Text="Customers order pick up time:" Height="20" TextAlignment="Center" />
+
+            <TextBox 
+                Grid.Column="1"
+                Grid.Row="0"
+                Height="20"
+                Text="{Binding CustomerArrivalTime, UpdateSourceTrigger=PropertyChanged}"
+                />
+
+            <TextBox 
+                Grid.Column="1"
+                Grid.Row="1"
+                Height="20"
+                Text="{Binding CookLeadTime, UpdateSourceTrigger=PropertyChanged}"
+                />
+            <TextBox 
+                Grid.Column="1"
+                Grid.Row="2"
+                Height="20"
+                Text="{Binding OrderTakerOrderingTime, UpdateSourceTrigger=PropertyChanged}"
+                />
+
+            <TextBox 
+                Grid.Column="1"
+                Grid.Row="3"
+                Height="20"
+                Text="{Binding ServerDeliveryTime, UpdateSourceTrigger=PropertyChanged}"
+                />
+
+            <TextBox 
+                Grid.Column="1"
+                Grid.Row="4"
+                Height="20"
+                Text="{Binding CustomerOrderPickUpTime, UpdateSourceTrigger=PropertyChanged}"
+            />
+
+            <Button
+                x:Name="btnStart"
+                Grid.Column="0" 
+                Grid.Row="5" 
+                Height="20" 
+                Width="100"
+                Content="Start" Margin="0,0,0,0" 
+                VerticalAlignment="Top" Click="Button_Click" />
+            <Button
+                x:Name="btnStop"
+                Grid.Column="1" 
+                Grid.Row="5" 
+                Height="20" 
+                
+                Content="Stop" Margin="0,0,0,0" 
+                VerticalAlignment="Top" Click="Button_Click_1" />
+        </Grid>
+        <Grid 
+            Grid.Column="1" 
+            Width="1px" 
+            Background="Black" />
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"></ColumnDefinition>
+                <ColumnDefinition Width="50*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"></RowDefinition>
+                <RowDefinition Height="60*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Column="0"
+                      Grid.Row="0"
+                      FontSize="20"
+                      Margin="5"
+                      Header="Order line area">
+                <StackPanel>
+                    <TextBlock>
+                        Number of
+                        <LineBreak></LineBreak>
+                        customers to Ordertaker: 
+                    </TextBlock>
+
+                    <TextBlock 
+                        Height="110" 
+                        FontSize="60"
+                        Text="{Binding Path=NumberOfCustomersWaitingToPlaceOrder}">
+                        
+                    </TextBlock>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Grid.Column="1"
+                Grid.Row="0"
+                Header="Order area"
+                FontSize="20"
+                Margin="5">
+
+                <StackPanel>
+                    <TextBlock>
+                        Number of orders 
+                        <LineBreak/>
+                        to cook:
+                    </TextBlock>
+
+                    <TextBlock 
+                        Height="110" 
+                        FontSize="60"
+                        Text="{Binding Path=CurrentOrderTakerOrder}">
+
+                    </TextBlock>
+                </StackPanel>
+
+            </GroupBox>
+            <GroupBox
+                Header="Kitchen area"
+                Grid.Column="0"
+                Grid.Row="1"
+                FontSize="20"
+                Margin="5">
+
+                <StackPanel>
+                    <TextBlock Margin="5,5,5,5">
+                        Order being prepared:
+                    </TextBlock>
+                    <TextBlock Margin="5,5,5,5" Text="{Binding Path=CurrentOrder}">
+                    </TextBlock>
+
+                    <TextBlock Margin="5,5,5,5">
+                        Count of orders 
+                        <LineBreak/>
+                        ready to cook:
+                    </TextBlock>
+                    <TextBlock Margin="5,5,5,5"
+                               Text="{Binding Path=CountOfWaitingOrders}">
+
+                    </TextBlock>
+                    <ScrollViewer Width="Auto" 
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <TextBlock Height="90" Margin="5" Text="{Binding Path=OrdersReadyToCook}" TextWrapping="Wrap" Width="Auto">
+                        </TextBlock>
+                    </ScrollViewer>
+                </StackPanel>
+
+            </GroupBox>
+            <GroupBox
+                Header="Pick up"
+                Grid.Column="1"
+                Grid.Row="1"
+                FontSize="20"
+                Margin="5">
+
+                <StackPanel>
+                    <TextBlock Margin="5">
+                        Currently available:
+                    </TextBlock>
+                    <TextBlock Margin="5" Text="{Binding Path=ContOfCurrentlyAvailableOrders}">
+
+                    </TextBlock>
+
+                    <TextBlock Margin="5">
+                        Number of waiting 
+                        <LineBreak/>
+                        customers:
+                    </TextBlock>
+
+                    <TextBlock Margin="5" Text="{Binding Path=CountOfWaitingCustomers}">
+
+                    </TextBlock>
+
+                </StackPanel>
+
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>
